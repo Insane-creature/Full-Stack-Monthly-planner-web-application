@@ -3,6 +3,8 @@ package com.macroplanner.MacroPlanner;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,29 +21,29 @@ public class PlannerController {
 
     // Defining end point to get list of all the challenges
     @GetMapping("/challenges")
-    public List<Challenge> getAlltChallenges() {
+    public ResponseEntity<List<Challenge>> getAlltChallenges() {
 
-        return challengeServices.getAlltChallenges();
+        return new ResponseEntity<>(challengeServices.getAlltChallenges(), HttpStatus.OK);
     }
 
     @PostMapping("/challenges")
-    public String addChallenge(@RequestBody Challenge challenge) {
+    public ResponseEntity<String> addChallenge(@RequestBody Challenge challenge) {
         boolean isChallengeAdded = challengeServices.addChallenge(challenge);
         if (isChallengeAdded) {
-            return "Challenge added successfully";
+            return new ResponseEntity<>("Challenge added successfully", HttpStatus.OK);
         } else {
-            return "Challenge not added successfully";
+            return new ResponseEntity<>("Challenge not added successfully", HttpStatus.NOT_FOUND);
         }
 
     }
 
     @GetMapping("/challenges/{month}")
-    public Challenge getChallenges(@PathVariable String month) {
+    public ResponseEntity<Challenge> getChallenges(@PathVariable String month) {
         Challenge challenge = challengeServices.getChallenges(month);
         if (challenge != null)
-            return challenge;
+            return new ResponseEntity<>(challenge, HttpStatus.OK);
         else
-            return null;
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }
