@@ -7,21 +7,21 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ChallengeServices {
-    private static List<Challenge> challenges = new ArrayList<>();
+    private List<Challenge> challenges = new ArrayList<>();
+
+    private Long nextId = 1L;
 
     public ChallengeServices() {
-        Challenge challenge1 = new Challenge(1L, "January",
-                "Create a new planner");
 
-        challenges.add(challenge1);
     }
 
-    public static List<Challenge> getAlltChallenges() {
+    public List<Challenge> getAlltChallenges() {
         return challenges;
     }
 
     public boolean addChallenge(Challenge challenge) {
         if (challenge != null) {
+            challenge.setId(nextId++);
             challenges.add(challenge);
             return true;
         } else {

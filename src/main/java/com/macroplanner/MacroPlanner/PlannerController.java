@@ -20,7 +20,7 @@ public class PlannerController {
     @GetMapping("/challenges")
     public List<Challenge> getAlltChallenges() {
 
-        return ChallengeServices.getAlltChallenges();
+        return challengeServices.getAlltChallenges();
     }
 
     @PostMapping("/challenges")
