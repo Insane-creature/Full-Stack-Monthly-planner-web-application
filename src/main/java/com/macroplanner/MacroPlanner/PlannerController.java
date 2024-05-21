@@ -4,23 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController // tells this class is a comtroller
 public class PlannerController {
-    private List<Challenge> challenges = new ArrayList<>();
+    private ChallengeServices challengeServices; // object of challenge service
 
-    public PlannerController() {
-        Challenge challenge1 = new Challenge(1L, "January", "Create a new planner");
-
-        challenges.add(challenge1);
-
+    public PlannerController(ChallengeServices challengeServices) {
+        this.challengeServices = challengeServices;
     }
 
     // Defining end point to get list of all the challenges
     @GetMapping("/challenges")
     public List<Challenge> getAlltChallenges() {
-        return challenges;
+
+        return ChallengeServices.getAlltChallenges();
+    }
+
+    @PostMapping("/challenges")
+    public String addChallenge(@RequestBody Challenge challenge) {
+        boolean isChallengeAdded = challengeServices.addChallenge(challenge);
+        if (isChallengeAdded) {
+            return "Challenge added successfully";
+        } else {
+            return "Challenge not added successfully";
+        }
+
     }
 
 }
