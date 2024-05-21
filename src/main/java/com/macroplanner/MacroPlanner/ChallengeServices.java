@@ -49,4 +49,8 @@ public class ChallengeServices {
         }
         return false;
     }
+
+    public boolean deleteChallenge(Long id) {
+        return challenges.removeIf(challenges -> challenges.getId().equals(id));
+    }
 }
