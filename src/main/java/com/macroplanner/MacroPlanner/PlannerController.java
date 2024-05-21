@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +33,15 @@ public class PlannerController {
             return "Challenge not added successfully";
         }
 
+    }
+
+    @GetMapping("/challenges/{month}")
+    public Challenge getChallenges(@PathVariable String month) {
+        Challenge challenge = challengeServices.getChallenges(month);
+        if (challenge != null)
+            return challenge;
+        else
+            return null;
     }
 
 }
