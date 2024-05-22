@@ -20,6 +20,9 @@ public class Challenge {
         this.description = description;
     }
 
+    public Challenge() {
+    }
+
     public Long getId() {
         return id;
     }
