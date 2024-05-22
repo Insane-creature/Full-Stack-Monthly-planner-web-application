@@ -1,8 +1,16 @@
 package com.macroplanner.MacroPlanner;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 // here we'll define the structure of our app
 public class Challenge {
+    @Id
     private Long id;
+
+    @Column(name = "challengeMonth")
     private String month;
     private String description;
 
